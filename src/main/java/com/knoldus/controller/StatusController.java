@@ -1,33 +1,26 @@
 package com.knoldus.controller;
 
+import com.knoldus.service.StatusService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
+/**
+ * Represent the StatusController for running time
+ */
 public class StatusController {
 
-    private static List<String> students= new ArrayList<>(Arrays.asList("Deepak","Kumar","MCA","Dhampur","Knoldus"));
+    //    injecting AppService object
+    @Autowired
+    StatusService statusService;
 
-    @RequestMapping("/name")
-    public String getName(){
-
-        return "Deepak";
-    }
-
-    @RequestMapping("students")
-    public List<String> getStudents(){
-
-        return students;
-
-    }
+    //    mapping request to this method
     @RequestMapping("/status")
-    public String getTime(){
-        return (ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME));
+    public String getStatusWithTime(){
+
+//        we are using AppService class here that we have created
+        return StatusService.getStatusWithTime();
     }
+
 }
